@@ -9,8 +9,8 @@ if [ "$#" -ne 1 ]; then
     exit
 fi
 
-umount $1/vmnt
-umount $1/boot
-umount $1
+umount -l $1/vmnt
+umount -l $1/boot
+umount -l $1
 
-echo "Unmounted $1 and $1/boot"
+echo "Unmounted $1/vmnt, $1/boot and $1"
