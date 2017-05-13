@@ -3,26 +3,25 @@
 # 
 # For an example using this in a project, see Makefile.example
 
-DATE=2016-05-27
+DATE=2017-04-10
 
 DIST=$(DATE)-raspbian-jessie-lite
 ZIP=$(DIST).zip
 IMAGE=$(DIST).img
 
-DL_PATH=http://vx2-downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2016-05-31/$(ZIP)
+DL_PATH=http://vx2-downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-$(DATE)/$(ZIP)
 CWD=$(shell pwd)
 
 # Docker arguments
 # Interactive mode, remove container after running, privileged mode for loopback access
 # Mount images to /usr/rpi/images to access image files from container
 # Change working directory to /usr/rpi (which is loaded with the helper scripts)
-RUN_ARGS=-it --rm --privileged=true -v $(CWD)/images:/usr/rpi/images -w /usr/rpi ryankurte/docker-rpi-emu
-MOUNT_DIR=/media/rpi
+RUN_ARGS=-it --rm --privileged=true -v $(CWD)/images:/usr/rpi/images -v $(CWD)/vmnt:/vmnt -w /usr/rpi taoyuan/raspemu
 
 # Build the docker image
 build:
 	@echo "Building base docker image"
-	@docker build -t ryankurte/docker-rpi-emu .
+	@docker build -t taoyuan/raspemu .
 
 # Bootstrap a RPI image into the images directory
 bootstrap: images/$(IMAGE)

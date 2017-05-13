@@ -10,9 +10,9 @@ This project provides a dockerised (err, containerised) Qemu based emulated envi
 Please note that this is very new. It works pretty well uner linux and OSX for emulation and for creating images to deploy, but YMMV.  
 It's also not a very good docker container, requiring priveledged mode to mount loopback adaptors and qemu on the docker host. All the scripts here can be run on native linux if you're that way inclined.
 
-Check it out on [Github](https://github.com/ryankurte/docker-rpi-emu/) or [Dockerhub](https://hub.docker.com/r/ryankurte/docker-rpi-emu/)  
+Check it out on [Github](https://github.com/taoyuan/docker-raspemu/) or [Dockerhub](https://hub.docker.com/r/taoyuan/docker-raspemu/)  
 
-![Example](https://raw.github.com/ryankurte/docker-rpi-emu/gh_pages/screenshots/02.png)
+![Example](https://raw.github.com/taoyuan/docker-raspemu/gh_pages/screenshots/02.png)
 
 ## Usage
 
@@ -22,7 +22,7 @@ Note that your docker host machine must have qemu installed. Using Docker for Ma
 
 To get started with an Emulated CLI:
 
-1. Run `git clone git@github.com:ryankurte/docker-rpi-emu.git` check out this repository
+1. Run `git clone git@github.com:taoyuan/docker-raspemu.git` check out this repository
 2. Run `cd docker-rpi-emu` to change into the directory
 3. Run `make run-emu` to launch the emulated environment
 
@@ -32,26 +32,31 @@ For examples of how to customise this, checkout the [Makefile](Makefile).
 
 ### From Dockerhub
 
-To get started with Docker, first pull the image with `docker pull ryankurte/docker-rpi-emu`.  
+To get started with Docker, first pull the image with `docker pull taoyuan/raspemu`.  
 
 Ensure you have a Raspbian image handy (and you may want to back this up, it will be modified by anything you do in the emulated environment), then run the following command.  
 
-`docker run -it --rm --privileged=true -v IMAGE_LOCATION:/usr/rpi/images -w /usr/rpi ryankurte/docker-rpi-emu /bin/bash -c './run.sh images/IMAGE_NAME [COMMAND]'`  
+`docker run -it --rm --privileged=true -v IMAGE_LOCATION:/usr/rpi/images -w /usr/rpi taoyuan/raspemu /bin/bash -c './run.sh images/IMAGE_NAME [COMMAND]'`  
 
 Where IMAGE_LOCATION is the directory containing your Raspbian image to be mounted, IMAGE_NAME is the name of the image to be used, and [COMMAND] is the optional command to be executed (inside the image).  
 
 For example:  
 
-`docker run -it --rm --privileged=true -v /Users/ryan/projects/docker-rpi-emu/images:/usr/rpi/images -w /usr/rpi ryankurte/docker-rpi-emu /bin/bash -c './run.sh images/2016-05-27-raspbian-jessie-lite.img /bin/bash'`  
+`docker run -it --rm --privileged=true -v /Users/taoyuan/projects/raspemu/images:/usr/rpi/images -w /usr/rpi taoyuan/raspemu /bin/bash -c './run.sh images/2017-04-10-raspbian-jessie-lite.img /bin/bash'`  
 
-Will mount the image directory `/Users/ryan/projects/docker-rpi-emu/images` and the image `2016-05-27-raspbian-jessie-lite.img` then run the command `/bin/bash` in the emulated environment.  
-
+Will mount the image directory `/Users/taoyuan/projects/docker-raspemu/images` and the image `2017-04-10-raspbian-jessie-lite.img` then run the command `/bin/bash` in the emulated environment.  
 
 ## Components
+
+### scripts
 
 The docker container includes the required Qemu components to support emulation. This must be launched in privileged mode to allow mounting of loopback devices.  
 
 The container also includes a set of scripts to streamline the loading/customization/launch/unloading of Qemu environments, which are installed into the `/usr/rpi` directory on the device.  
+
+### vmnt
+
+__TBD__
 
 
 ## Commands

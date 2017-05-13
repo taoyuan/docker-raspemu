@@ -28,6 +28,13 @@ mkdir -p $MOUNT_DIR
 # Mount ISO
 ./mount.sh $1 $MOUNT_DIR
 
+# Mount some others
+# See: https://github.com/ryankurte/docker-rpi-emu/issues/9
+mount --bind /proc $MOUNT_DIR/proc/
+mount --bind /dev $MOUNT_DIR/dev/
+mount --bind /sys $MOUNT_DIR/sys/
+mount --bind /dev/pts $MOUNT_DIR/dev/pts
+
 # Bootstrap QEMU
 ./qemu-setup.sh $MOUNT_DIR
 

@@ -55,7 +55,11 @@ mkdir -p $2
 mount $1 -o loop,offset=$(($P2_START*$BLOCK_SIZE)),rw $2
 mount $1 -o loop,offset=$(($P1_START*$BLOCK_SIZE)),rw $2/boot
 
-echo "Mounted to $2 and $2/boot"
+# Mount vmnt
+mkdir -p $2/vmnt
+mount --bind /vmnt $2/vmnt
+
+echo "Mounted to $2/vmnt, $2 and $2/boot"
 
 
 

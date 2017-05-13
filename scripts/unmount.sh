@@ -9,6 +9,7 @@ if [ "$#" -ne 1 ]; then
     exit
 fi
 
+umount $1/vmnt
 umount $1/boot
 umount $1
 
